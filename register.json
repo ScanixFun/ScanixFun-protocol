@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "records": [
+    { "id": "ca", "label": "Contract address", "state": "absent", "checkedAt": "2026-10-31" },
+    { "id": "x", "label": "X", "state": "absent", "checkedAt": "2026-10-31" },
+    { "id": "github", "label": "GitHub", "state": "absent", "checkedAt": "2026-10-31" },
+    {
+      "id": "market-source",
+      "label": "Market feed",
+      "state": "stated",
+      "url": "https://api.dexscreener.com",
+      "source": "client statement",
+      "scope": "batch-level",
+      "checkedAt": "2026-10-31"
+    },
+    {
+      "id": "chain",
+      "label": "Network",
+      "state": "stated",
+      "value": "Solana",
+      "url": "https://solana-rpc.publicnode.com",
+      "source": "client statement",
+      "scope": "batch-level",
+      "checkedAt": "2026-10-31"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "name": "scanix",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Scanix, a live read on where Solana volume gathers.",
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "gates": "node scripts/gates.mjs"
+  }
+}

@@ -1,0 +1,78 @@
+/*
+  Palette provenance. Every literal below is a real pixel read from the assets in brand/ and reference/.
+  Method: k-means (k=6, 25 iterations, seeded sample of up to 60000 pixels) per file, each centroid
+  snapped to the nearest real pixel in the full image. Coordinates are (x,y) in the source file.
+  This is the only file in the project allowed to contain colour literals (the favicon is traced from
+  the same pixels and is checked against this list by the gates).
+
+  brand/LOGO SCANIX PNG.png (2000x2000, colortype 6, opaque)
+    --blue        #004bfe  (0,0)        91.0% field
+    --white       #fdfdfd  (1001,621)    8.8% mark
+    --blue-mid    #1858f0  (1185,798)    edge pixels
+    --blue-soft   #7fa0ed  (1136,953)    edge pixels
+    --blue-edge   #4979ea  (837,775)     edge pixels
+    --blue-haze   #c0d0f4  (1042,657)    edge pixels
+  reference/SAMPUL SCANIX JPG.jpg.jpeg (1500x500)
+    --blue-deep-2 #146ded  (1008,246)
+    --sky         #3aa4f8  (1080,255)
+    --mist-3      #ebf2fc  (176,0)
+    --mist-4      #f2f7fd  (103,0)
+    --mist-2      #e2ebfa  (377,0)
+    --haze        #b9d5fa  (301,317)
+  reference/SCANIX 1.jpg.jpeg (1600x900)
+    --azure       #0880f8  (987,539)
+    --navy        #0b4ca8  (619,330)
+    --sky-soft    #93c9f8  (514,555)
+    --mist-1      #d4e9fc  (648,64)
+    --mist-5      #e3f1fe  (295,15)
+    --mist-6      #f2fafd  (189,8)
+*/
+:root {
+  --blue: #004bfe;
+  --white: #fdfdfd;
+  --blue-mid: #1858f0;
+  --blue-soft: #7fa0ed;
+  --blue-edge: #4979ea;
+  --blue-haze: #c0d0f4;
+  --blue-royal: #146ded;
+  --sky: #3aa4f8;
+  --azure: #0880f8;
+  --navy: #0b4ca8;
+  --sky-soft: #93c9f8;
+  --haze: #b9d5fa;
+  --mist-1: #d4e9fc;
+  --mist-2: #e2ebfa;
+  --mist-3: #ebf2fc;
+  --mist-4: #f2f7fd;
+  --mist-5: #e3f1fe;
+  --mist-6: #f2fafd;
+
+  /* roles */
+  --bg: var(--mist-4);
+  --surface: var(--white);
+  --ink: var(--navy);
+  --ink-strong: var(--navy);
+  --ink-soft: color-mix(in srgb, var(--navy) 72%, var(--mist-4));
+  --accent: var(--blue);
+  --accent-2: var(--azure);
+  --line: color-mix(in srgb, var(--blue) 14%, var(--mist-4));
+  --line-strong: color-mix(in srgb, var(--blue) 28%, var(--mist-4));
+  --up: var(--azure);
+  --down: var(--navy);
+  --shadow: color-mix(in srgb, var(--blue) 22%, transparent);
+
+  /* motion */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-io: cubic-bezier(0.65, 0, 0.35, 1);
+  --t-fast: 160ms;
+  --t-mid: 350ms;
+  --t-slow: 600ms;
+  --stagger: 100ms;
+
+  /* layout */
+  --maxw: 1180px;
+  --gutter: 20px;
+  --radius: 18px;
+  --radius-sm: 12px;
+  --tap: 44px;
+}

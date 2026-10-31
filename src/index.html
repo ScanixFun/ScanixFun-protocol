@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Scanix | Solana volume, read live</title>
+<meta name="description" content="Scanix reads where Solana trading volume is gathering right now and lays it out as a ranked board.">
+<meta name="theme-color" content="@@THEME@@">
+<script>document.documentElement.classList.add("js")</script>
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/main.css">
+<script type="application/json" id="scanix-config">@@CONFIG@@</script>
+<script type="module" src="js/app.js"></script>
+</head>
+<body>
+<div class="progress" aria-hidden="true"><i id="progress"></i></div>
+
+<header class="top" id="top">
+  <div class="wrap top-row">
+    <a class="brand" href="#top" aria-label="Scanix home">
+      <span class="brand-tile"><img src="assets/logo-192.png" alt="" width="192" height="142" decoding="async"></span>
+      <span class="brand-name">Scanix</span>
+    </a>
+    <nav class="nav" aria-label="Sections">
+      <a href="#market">Board</a>
+      <a href="#method">Method</a>
+      <a href="#status">Status</a>
+    </nav>
+    <div class="social" aria-label="Social links">
+@@SOCIAL@@
+    </div>
+  </div>
+</header>
+
+<div class="wrap ca-wrap">
+@@CA@@
+</div>
+
+<main>
+  <section class="hero" id="hero">
+    <div class="mesh" aria-hidden="true">
+      <i class="blob b1"></i><i class="blob b2"></i><i class="blob b3"></i>
+    </div>
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <p class="pill" id="live-pill" data-state="idle"><span class="dot" aria-hidden="true"></span><span id="live-text">Connecting</span></p>
+        <h1 class="headline" aria-label="Watch where Solana volume gathers.">
+          <span class="w" style="--i:0" aria-hidden="true">Watch</span>
+          <span class="w" style="--i:1" aria-hidden="true">where</span>
+          <span class="w" style="--i:2" aria-hidden="true">Solana</span>
+          <span class="w" style="--i:3" aria-hidden="true">volume</span>
+          <span class="w grad" style="--i:4" aria-hidden="true">gathers.</span>
+        </h1>
+        <p class="sub">Scanix pulls the busiest Solana pairs from a public aggregator, ranks them by what traded in the last day, and keeps the board fresh while you look.</p>
+        <div class="cta">
+          <a class="btn btn-primary" href="#market">Open the board</a>
+          <a class="btn btn-ghost" href="#method">How it reads</a>
+        </div>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <div class="layer l-back" data-depth="0.5"><i class="ring r1"></i><i class="ring r2"></i></div>
+        <div class="layer l-mid" data-depth="1">
+          <div class="float">
+            <div class="logo-tile"><img src="assets/logo-640.png" alt="" width="640" height="473" decoding="async"></div>
+          </div>
+        </div>
+        <div class="layer l-front" data-depth="1.8"><i class="spark s1"></i><i class="spark s2"></i><i class="spark s3"></i></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ticker" aria-label="Live ticker">
+    <div class="ticker-track" id="ticker"></div>
+  </section>
+
+  <section class="wrap stats" aria-label="Board totals">
+    <div class="tile spot" data-reveal><span class="tile-k">Volume on the board</span><b class="tile-v" id="st-vol">&mdash;</b></div>
+    <div class="tile spot" data-reveal><span class="tile-k">Depth on the board</span><b class="tile-v" id="st-liq">&mdash;</b></div>
+    <div class="tile spot" data-reveal><span class="tile-k">Strongest mover</span><b class="tile-v" id="st-top">&mdash;</b></div>
+    <div class="tile spot" data-reveal><span class="tile-k">Pairs listed</span><b class="tile-v" id="st-n">&mdash;</b></div>
+  </section>
+
+  <section class="wrap panel-wrap" id="market">
+    <div class="sec-head" data-reveal>
+      <h2>The board</h2>
+      <p>Ten Solana pairs, ranked by what changed hands over the last day.</p>
+    </div>
+    <div class="panel" data-reveal>
+      <div class="panel-bar">
+        <div class="tabs" role="tablist" aria-label="Ranking">
+          <button class="tab" role="tab" id="tab-volume" aria-selected="true" aria-controls="rows" data-sort="volume">Volume</button>
+          <button class="tab" role="tab" id="tab-move" aria-selected="false" aria-controls="rows" data-sort="move" tabindex="-1">Momentum</button>
+          <button class="tab" role="tab" id="tab-depth" aria-selected="false" aria-controls="rows" data-sort="depth" tabindex="-1">Depth</button>
+          <i class="tab-ink" aria-hidden="true"></i>
+        </div>
+        <p class="feed-note" id="feed-note" role="status"></p>
+      </div>
+      <div class="thead" aria-hidden="true">
+        <span class="c-rank">#</span><span class="c-tok">Token</span><span class="c-price">Price</span><span class="c-chg">24h</span><span class="c-vol">Volume</span><span class="c-liq">Depth</span><span class="c-act"></span>
+      </div>
+      <div class="rows" id="rows" role="tabpanel" aria-labelledby="tab-volume"></div>
+    </div>
+  </section>
+
+  <section class="wrap" id="method">
+    <div class="sec-head" data-reveal>
+      <h2>How it reads</h2>
+      <p>Three plain steps, repeated while the page stays open.</p>
+    </div>
+    <div class="grid3">
+      <article class="card spot" data-reveal><span class="num">1</span><h3>Collect</h3><p>The most promoted tokens are pulled from the aggregator and anything off Solana is dropped.</p></article>
+      <article class="card spot" data-reveal><span class="num">2</span><h3>Resolve</h3><p>Each survivor is matched to its deepest pair so price, volume and depth describe one market, not a blend.</p></article>
+      <article class="card spot" data-reveal><span class="num">3</span><h3>Rank</h3><p>The ten busiest by daily volume make the board. Switch the tab to reorder by momentum or by depth.</p></article>
+    </div>
+  </section>
+
+  <section class="wrap">
+    <div class="sec-head" data-reveal>
+      <h2>Built to stay readable</h2>
+      <p>Less chrome, more signal.</p>
+    </div>
+    <div class="grid4">
+      <article class="card spot" data-reveal><h3>Always on</h3><p>The feed runs from the moment the page opens and rests while the tab is out of view.</p></article>
+      <article class="card spot" data-reveal><h3>Keeps its footing</h3><p>If a refresh fails, the last good board stays on screen and the feed retries with growing pauses.</p></article>
+      <article class="card spot" data-reveal><h3>One tap away</h3><p>Every row carries a button that puts the token address on your clipboard.</p></article>
+      <article class="card spot" data-reveal><h3>Motion with manners</h3><p>Every animation steps aside when your system asks for reduced motion.</p></article>
+    </div>
+  </section>
+
+  <section class="wrap" id="status">
+    <div class="sec-head" data-reveal>
+      <h2>Status board</h2>
+      <p>What is confirmed, and what is still pending.</p>
+    </div>
+    <ul class="chips" data-reveal>
+@@CHIPS@@
+    </ul>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-row">
+    <a class="brand" href="#top" aria-label="Back to top">
+      <span class="brand-tile"><img src="assets/logo-192.png" alt="" width="192" height="142" decoding="async"></span>
+      <span class="brand-name">Scanix</span>
+    </a>
+    <p>Figures come from a public aggregator and are shown as received. Nothing on this page is financial advice.</p>
+  </div>
+</footer>
+</body>
+</html>
